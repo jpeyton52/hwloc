@@ -513,9 +513,13 @@ hwloc_internal_cpukinds_rank(struct hwloc_topology *topology)
     if (arch && (!strncmp(arch, "arm", 3) || !strncmp(arch, "aarch", 5)))
       /* then frequency on ARM */
       subheuristics = HWLOC_CPUKINDS_RANKING_FREQUENCY;
-    else
-      /* or coretype+frequency otherwise */
+    else if (summary.have_intel_core_type &&
+             (summary.have_max_freq || summary.have_base_freq))
+      /* or coretype+frequency */
       subheuristics = HWLOC_CPUKINDS_RANKING_CORETYPE_FREQUENCY;
+    else
+      /* or coretype otherwise */
+      subheuristics = HWLOC_CPUKINDS_RANKING_CORETYPE;
 
     err = hwloc__cpukinds_try_rank_by_info(topology, subheuristics, &summary);
     free(summary.summaries);
