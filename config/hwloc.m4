@@ -1197,9 +1197,9 @@ return clGetDeviceIDs(0, 0, 0, NULL, NULL);
 			      ], [hwloc_levelzero_happy=no])
       if test x$hwloc_levelzero_happy = xno; then
         hwloc_levelzero_happy=yes
-        AC_CHECK_HEADERS([ze_api.h], [
+        AC_CHECK_HEADERS([level_zero/ze_api.h], [
           AC_CHECK_LIB([ze_loader], [zeInit], [
-            AC_CHECK_HEADERS([zes_api.h], [
+            AC_CHECK_HEADERS([level_zero/zes_api.h], [
               AC_CHECK_LIB([ze_loader], [zesDevicePciGetProperties], [HWLOC_LEVELZERO_LIBS="-lze_loader"], [hwloc_levelzero_happy=no])
             ], [hwloc_levelzero_happy=no])
           ], [hwloc_levelzero_happy=no])
